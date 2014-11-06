@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport"
+	content="width=device-width,initial-scale=1.0,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+<title>デバッグコントロール</title>
+
+<style>
+table {
+	border-collapse: collapse;
+}
+
+th {
+	border: solid 1px;
+	padding: 0.5em;
+}
+
+td {
+	border: solid 1px;
+	padding: 0.5em;
+}
+</style>
+<script src="js/jquery-2.0.3.min.js"></script>
+<script src="js/debug_control.js"></script>
+</head>
+
+<body>
+	<p>
+		<b>コンテンツ読み込み</b>
+	</p>
+	<input type="text" id="content_file" size="64" value="index.html">
+	<br>
+	<input type="button" onclick="javascript:Main.loadContent();" value="読み込み">
+	<br>
+	<br>
+
+	<p>
+		<b>通知（ネイティブ ⇒ ブラウザ）</b>
+	</p>
+	<select id="n2b_notification" onChange="javascript:Main.selectEvent();">
+		<option>onInit</option>
+		<option>onResume</option>
+		<option>onPause</option>
+		<option>onTerminate</option>
+		<option>onUcode</option>
+		<option>onTimer</option>
+		<option>onPlace</option>
+		<option>onLocation</option>
+	</select>
+	<br>
+	<input type="text" id="param_key1" size="16" value="" disabled readonly>
+	<input type="text" id="param_val1" size="64" value="">
+	<br>
+	<input type="text" id="param_key2" size="16" value="" disabled readonly>
+	<input type="text" id="param_val2" size="64" value="">
+	<br>
+	<input type="text" id="param_key3" size="16" value="" disabled readonly>
+	<input type="text" id="param_val3" size="64" value="">
+	<br>
+	<input type="text" id="param_key4" size="16" value="" disabled readonly>
+	<input type="text" id="param_val4" size="64" value="">
+	<br>
+	<input type="button" onclick="javascript:Main.sendEvent();" value="実行">
+	<br>
+	<br>
+
+	<p>
+		<b>要求（ブラウザ ⇒ ネイティブ）の履歴</b>
+	</p>
+	<textarea id="b2n_request" cols="64" rows="16" style="overflow: scroll;"></textarea>
+	<br>
+	<input type="button" onclick="javascript:Main.clearHistory();" value="クリア">
+	<br>
+	<br>
+
+	<p>
+		<b>ローカルストレージ</b>
+	</p>
+	<table id="local_storage">
+		<tr>
+			<th>Key</th>
+			<th>Value</th>
+		</tr>
+	</table>
+</body>
+</html>

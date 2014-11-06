@@ -1,0 +1,134 @@
+[{
+  "id": "1",
+  "ucode": "00001C00000000000001000000092310",
+  "on": "img/kou1(color).png",
+  "off": "img/kou1(black).png",
+  "full": "img/kou1(full).png",
+  "name": "正门",
+  "intro":"",
+  "map": {
+    "map1": "工１.png"
+  },
+  "pages": {
+  }
+}, {
+  "id": "2",
+  "ucode": "00001C00000000000001000000092311",
+  "on": "img/kou2(color).png",
+  "off": "img/kou2(black).png",
+  "full": "img/kou2(full).png",
+  "name": "生協食堂1F",
+  "intro":"",
+  "map": {
+    "map1": "工2-1.png",
+    "map2": "工2-2.png"
+  },
+  "pages": {
+  }
+}, {
+  "id": "3",
+  "ucode": "00001C00000000000001000000092312",
+  "on": "img/kou3(color).png",
+  "off": "img/kou3(black).png",
+  "full": "img/kou3(full).png",
+  "name": "駒場図書館前",
+  "intro":"",
+  "map": {
+    "map1": "工3.png"
+  },
+  "pages": {
+  }
+}, {
+  "id": "4",
+  "ucode": "00001C00000000000001000000092313",
+  "on": "img/kou5(color).png",
+  "off": "img/kou5(black).png",
+  "full": "img/kou5(full).png",
+  "name": "駒場池",
+  "intro":"",
+  "map": {
+    "map1": "工5.png"
+  },
+  "pages": {
+  }
+}, {
+  "id": "5",
+  "ucode": "00001C00000000000001000000092314",
+  "on": "img/kou6(color).png",
+  "off": "img/kou6(black).png",
+  "full": "img/kou6(full).png",
+  "name": "２１　ＫＯＭＣＥＥ　ＷＥＳＴ",
+  "intro":"",
+  "map": {
+    "map1": "工6-1.png",
+    "map2": "工6-2.png"
+  },
+  "pages": {
+  }
+}, {
+  "id": "6",
+  "ucode": "00001C00000000000001000000092315",
+  "on": "img/kou7(color).png",
+  "off": "img/kou7(black).png",
+  "full": "img/kou7(full).png",
+  "name": "",
+  "intro":"",
+  "map": {},
+  "pages": {
+  }
+}, {
+  "id": "7",
+  "ucode": "00001C00000000000001000000092316",
+  "on": "img/kou8(color).png",
+  "off": "img/kou8(black).png",
+  "full": "img/kou8(full).png",
+  "name": "",
+  "intro":"",
+  "map": {
+    "map1": "工8.png",
+    "map2": "工8-2.png"
+  },
+  "pages": {
+  }
+}, {
+  "id": "8",
+  "ucode": "00001C00000000000001000000092317",
+  "on": "img/kou11(color).png",
+  "off": "img/kou11(black).png",
+  "full": "img/kou11(full).png",
+  "name": "",
+  "intro":"",
+  "map": {
+    "map1": "工11.png"
+  },
+  "pages": {
+   
+  }
+}, {
+  "id": "9",
+  "ucode": "00001C00000000000001000000092318",
+  "on": "img/kou14(color).png",
+  "off": "img/kou14(black).png",
+  "full": "img/kou14(full).png",
+  "name": "",
+  "intro":"",
+  "map": {
+    "map1": "工14.png"
+  },
+  "pages": {
+  }
+},{
+  "id": "10",
+  "ucode": "00001C00000000000001000000092319",
+  "on": "img/kou14(color).png",
+  "off": "img/kou14(black).png",
+  "full": "img/kou14(full).png",
+  "name": "",
+  "intro":"",
+  "map": {
+    "map1": "工14.png"
+  },
+  "pages": {
+  }
+}
+]

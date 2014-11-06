@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>クイズラリー</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Loading Bootstrap -->
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <!-- Loading Flat UI -->
+    <link href="css/flat-ui.css" rel="stylesheet">
+    <link href="css/base.css" rel="stylesheet">
+
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/kokosil-client.js"></script>
+    <script src="js/stamprally-api.js"></script>
+    <script src="js/map.js"></script>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
+    <!--[if lt IE 9]>
+      <script src="js/html5shiv.js"></script>
+    <![endif]-->
+    <script>
+    function quiz_list()
+    {
+
+      var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
+      var registeredTags=KokosilClient.getContext('mayfestival_stamprally_registeredTags', registeredTags);
+      var length;
+      if(registeredTags==null)length=0;
+      else length=registeredTags.length;
+      location.href='quiz_list.php?user_id='+user_id+'&length='+length;
+    
+    }
+    function finish()
+    {
+      var r=confirm("本当に解答を終了しますか？");
+      if(r==true)
+      {
+      var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
+      location.href="result.php?user_id="+user_id;
+      }
+      else ;
+    
+    }
+
+    </script>
+  </head>
+
+
+<!--<body onLoad="javascript:Main.initMap();">!-->
+<body>
+
+<div class="header_map">
+<h1><a href="index.html"><span class="glyphicon glyphicon-chevron-left"></span>
+TOP</a></h1>
+</div>
+
+<div class="stamp_area_head count">
+  
+   クイズ：<span id="stamp_acount"></span> 問解答
+  <br/>
+</div>
+
+<div class="map_area" style="margin-bottom:118px;">
+<div class="map">
+
+<img src="img/map.png">
+
+<div class="s-1">
+    <img id="1_off" name="kou1" src="img/star_grey.png" >
+    <img id="1_on" name="kou1" src="img/star_red.png" style="display:none">
+</div>
+
+<div class="s-2">
+    <img id="2_off" name="kou2" src="img/star_grey.png" >
+    <img id="2_on" name="kou2" src="img/star_red.png" style="display:none">
+</div>
+
+<div class="s-3">
+    <img id="3_off" name="kou3" src="img/star_grey.png" >
+    <img id="3_on" name="kou3" src="img/star_red.png" style="display:none">
+</div>
+
+<div class="s-4">
+    <img id="4_off" name="kou4" src="img/star_grey.png" >
+    <img id="4_on" name="kou4" src="img/star_red.png" style="display:none">
+</div>
+
+<div class="s-5">
+    <img id="5_off" name="kou5" src="img/star_grey.png" >
+    <img id="5_on" name="kou5" src="img/star_red.png" style="display:none">
+</div>
+
+</div>
+</div>
+
+
+<div class="link_area">
+<a class="btn btn-danger btn-lg" onclick="quiz_list();">
+クイズ一覧
+</a>
+<a class="btn btn-danger btn-lg" onclick="finish();">
+&nbsp;&nbsp;&nbsp;解答終了&nbsp;&nbsp;&nbsp;
+</a>
+</div>
+
+<footer >
+  <a id="finish" href="javascript:Main.launchQr();">QR起動</a>
+</footer>
+
+</body>
+</html>
