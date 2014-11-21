@@ -5,43 +5,61 @@
     <title>答えまくれクイズラリー</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Loading Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
-    <!-- Loading Flat UI -->
-    <link href="css/flat-ui.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="images/favicon.ico">
 
-    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/kokosil-client.js"></script>
     <script src="js/stamprally-api.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-    <![endif]-->
+
   </head>
 
-
 <body>
-
-<header>
     <?php
+    /*echo "
+    <div class='header_map'>
+    <h1><a href='result.php?user_id={$_GET['user_id']}'><span class='glyphicon glyphicon-chevron-left'>
+    </span>戻る</a></h1>
+    </div>
+    <div class='stamp_area_head count' style='margin-bottom:0px;'>
+      景品交換所
+    </div>
+    "*/
     echo "
-    <h1><a href=\"result.php?user_id={$_GET['user_id']}\"><span class=\"glyphicon glyphicon-chevron-left\">
-    </span>景品交換画面</a></h1>
-
-    "
+    <header>
+        <h1>
+        <table border='0px' width='100%'> 
+        <tr>
+        <td width='25%'>
+        <a href='map.php?user_id={$_GET['user_id']}'><span class='glyphicon glyphicon-chevron-left'></span>MAP</a>
+        </td>
+        <td align='center'>
+        景品交換所
+        </td>
+        <td width='25%'>
+        </td>
+        </tr>
+        </table>
+        </h1>
+        </header>
+    ";
 ?>
-</header>
 
+
+
+<div class='quiz_text'>
+  <p align = 'center'>11号館1102教室で景品交換！</p>
+</div>
 
 <div align="center">
 
-<img src="img/map.png" style="width:60%;height:60%;">
+<img src="img/spot.png" style="width:100%;height:100%;">
 
 </div>
+
 
 
 <!--<a id="reset_btn" class="btn btn-danger btn-block btn-lg radius2" href="javascript:Main.reset();" style="margin-bottom:30px;">Reset</a>
@@ -57,7 +75,6 @@
 </a>-->
 
 
-</div>
 <!--container-->
 
 <div class="link_area3">

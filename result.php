@@ -5,28 +5,21 @@
     <title>答えまくれクイズラリー</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Loading Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
-    <!-- Loading Flat UI -->
-    <link href="css/flat-ui.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
-
     <link rel="shortcut icon" href="images/favicon.ico">
 
-    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
     <script src="js/kokosil-client.js"></script>
     <script src="js/stamprally-api.js"></script>
-    <!-- HTML5 shim, for IE6-8 support of HTML5 elements. All other JS at the end of file. -->
-    <!--[if lt IE 9]>
-      <script src="js/html5shiv.js"></script>
-    <![endif]-->
+
     <script>
+    var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
+    var registeredTags=KokosilClient.getContext('mayfestival_stamprally_registeredTags', registeredTags);
     function quiz_list()
     {
-      var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
       var length;
-      var registeredTags=KokosilClient.getContext('mayfestival_stamprally_registeredTags', registeredTags);
       if(registeredTags==null)length=0;
       else length=registeredTags.length;
       location.href='quiz_list.php?user_id='+user_id+'&length='+length;
@@ -38,16 +31,21 @@
 
 <body>
 
-<header>
-<h1><a href="map.html"><span class="glyphicon glyphicon-chevron-left"></span>
-MAP</a></h1>
 
+<?php
+
+echo"
+<header>
+<h1>
+<a href='map.php?user_id={$_GET['user_id']}'><span class='glyphicon glyphicon-chevron-left'></span>MAP</a>
+</h1>
 </header>
+";
+?>
 
 <?php
    
     if(isset($_GET['user_id'])){
-        //$conn=mysql_connect("localhost","root","");
         $conn=mysql_connect("localhost","root","komaba2014");
         mysql_set_charset('utf8');
         mysql_select_db("Komaba_Festival");
@@ -60,6 +58,7 @@ MAP</a></h1>
 
         $score=0;
         $score_point=0;
+        $count_answered=0;
         $result = mysql_query("SELECT * From Users where user_id = '{$_GET['user_id']}'");
         $row_res= mysql_fetch_array($result);
         for($i=1;$i<=10;$i++){
@@ -68,6 +67,7 @@ MAP</a></h1>
           $row_ans=mysql_fetch_array($answer);
           if($result_user!=0)
           {
+            $count_answered++;
             if($result_user==$row_ans[answer])
             {
               if($i<=4) $score_point+=10;
@@ -85,30 +85,34 @@ MAP</a></h1>
             }
           }
         }
+
+
+        if($row_res[age]!=null)
+          $score_point+=20;
+
         mysql_close();
       };
 ?>
 
-<div  style="background-color:#551A8B; text-align:center;
-  background-position:center center;
-  width:70%;
-  min-height:40%;
-  margin: 0 auto;
-  color:#ffffff;" > 
-<!--<img src="img/result.png" style="width:60%;height:60%;">-->
-<br/>
-<font size='3' color='red'>コンプリート!!</font>
+<div class="result">
+<div class="comp">
+解答終了!!</div>
 
+<p>解答数：<?php echo "$count_answered"; ?>個</p>
 <br/>
-正解数：<?php echo "$score"; ?>個
+<p>正解数：<?php echo "$score"; ?>個</p>
 <br/>
-総得点：<?php echo "$score_point";?>点
+<p>総得点：<?php echo "$score_point";?>点</p>
+
+<?php
+if($row_res[age]==null)
+echo "
+<font size=2 color=yellow>下のアンケートを記入すると、ボーナスポイントがもらえますよ！</font>
+";
+?>
 <div align="center">
-
 <img src="img/komakero.png" style="width:30%;height:30%;">
-
 </div>
-
 </div>
 
 <div class="container" style="margin-bottom:90px; margin-top:40px;">
@@ -116,26 +120,18 @@ MAP</a></h1>
 <br/>
 <?php
 echo "
-<a id=\"start_btn\" class=\"btn btn-danger btn-block btn-lg radius2\" href=\"spot.php?user_id={$_GET['user_id']}\" style=\"margin-bottom:30px;\">景品交換所</a>
-<a id=\"manual_btn\" class=\"btn btn-danger btn-block btn-lg radius2\" onclick=\"quiz_list();\" style=\"margin-bottom:30px;\">クイズ一覧</a>
-"
+<a id='start_btn' class='btn btn-danger btn-block btn-lg radius2' href='spot.php?user_id={$_GET['user_id']}' style='margin-bottom:30px;'>景品交換所</a>
+<a id='manual_btn' class='btn btn-danger btn-block btn-lg radius2' onclick='quiz_list();' style='margin-bottom:30px;'>クイズ一覧</a>
+";
+
+
+if($row_res[age]==null)
+echo "
+<a id='start_btn' class='btn btn-danger btn-block btn-lg radius2' href='q.php?user_id={$_GET['user_id']}' style='margin-bottom:30px;'>アンケート</a>
+";
 ?>
 
-
-<!--<a id="reset_btn" class="btn btn-danger btn-block btn-lg radius2" href="javascript:Main.reset();" style="margin-bottom:30px;">Reset</a>
-<img src="img/intro.png" style="width:95%;height:100%;">
-
-<p style="color:#333399;text-shadow:3px 3px 3px rgba(0, 0, 0, 0.2)">今年の五月祭「東大制覇ラリー〜館コレ〜」のご利用、誠にありがとうございました。
-スタンプ詳細ページでめいちゃんの画像をクッリクすると、スタンプのダウロードができます〜
-</p>!-->
-
-
-<!--<a class="btn btn-danger btn-block btn-lg radius2" href="kokosil.html" style="margin-bottom:30px;">
-ココシルロゴ
-</a>-->
-
 </div>
-<!--container-->
 
 <div class="link_area3">
 <div class="kokosil-logo">
@@ -143,12 +139,12 @@ echo "
 </div>
 </div>
 
-<a href="gcl.html" >
-<footer style="font-size:12px; line-height:1.4;">
+
+<footer>
+  <a href="gcl.html" >
 提供：東京大学坂村・越塚研究室<br>
 東京大学リーディングプログラムGCL
-</footer>
 </a>
-
+</footer>
 </body>
 </html>

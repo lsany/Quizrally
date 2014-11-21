@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8">
+    <title>答えまくれクイズラリー</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link href="css/bootstrap.css" rel="stylesheet">
+
+    <link href="css/base.css" rel="stylesheet">
+    <link rel="shortcut icon" href="images/favicon.ico">
+
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="js/kokosil-client.js"></script>
+    <script src="js/stamprally-api.js"></script>
+
+    <script>
+    var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
+    function map()
+    {
+
+      
+      location.href='map.php?user_id='+user_id;
+    }
+
+    </script>
+    
+  </head>
+
+
+<body>
+
+<header>
+<h1><a onclick="map();"><span class="glyphicon glyphicon-chevron-left"></span>
+MAP</a></h1>
+</header>
+
+<div class='result' style='width:80%; margin-bottom:120px;'>
+  <br/>
+<p style='font-size:15px; margin-bottom:20px;'>このクイズはもう解答しました！</p>
+<div align="right">
+<img src="img/komakero2.png" style="width:30%;height:30%;">
+</div>
+</div>
+<a class="btn btn-danger btn-block btn-lg radius2 link_area4" onclick="map();">戻ります！</a>
+</body>
+</html>

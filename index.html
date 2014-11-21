@@ -5,57 +5,91 @@
     <title>答えまくれクイズラリー</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!-- Loading Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
 
-    <!-- Loading Flat UI -->
-    <link href="css/flat-ui.css" rel="stylesheet">
     <link href="css/base.css" rel="stylesheet">
 
     <link rel="shortcut icon" href="images/favicon.ico">
-
-    <script src="js/jquery-2.0.3.min.js"></script>
+    <script src="js/jquery-2.1.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.2/js/bootstrap.min.js"></script>
+    <script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js"></script>
+   
     <script src="js/kokosil-client.js"></script>
     <script src="js/stamprally-api.js"></script>
+    <script src="js/jquery.confirm.js"></script>
     <script src="js/index.js"></script>
   </head>
 
-
 <body>
-
 <div class="header_top">
 <img src="img/header.png">
 </div>
 
-
-<div class="container" style="margin-bottom:90px; margin-top:40px;">
+<div class="container" style="margin-bottom:120px; margin-top:40px;">
     <div id="progress" class="indicator">
           <p>Now loading ...</p>
           <img src="img/progress.gif"/>
      </div>
 
-<a id="start_btn" class="btn btn-danger btn-block btn-lg radius2" href="map.html" style="margin-bottom:30px;display:none;">スタート</a>
-<a id="manual_btn" class="btn btn-danger btn-block btn-lg radius2" href="manual.html" style="margin-bottom:30px;">使い方</a>
-<p style="color:#333399;text-shadow:3px 3px 3px rgba(0, 0, 0, 0.2)">
-</br>
-
-</br>
-
-</p>
 
 
-<!--<img src="img/intro.png" style="width:95%;height:100%;"--> 
+<!--
+<a id="start_btn" class="btn btn-danger btn-block btn-lg radius2" onclick="map();" style="margin-bottom:30px;display:none;">スタート</a>
+!-->
+
+<a id="start_btn" class="btn btn-danger btn-block btn-lg radius2" style="margin-bottom:30px;display:none;">スタート</a>
+<script>
+var registeredTags=KokosilClient.getContext('mayfestival_stamprally_registeredTags');
+var flag;
+var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
+if(registeredTags==null||registeredTags==0)flag=0; //Androidでレジスターされる前はnull,iphoneの場合は0です。
+else flag=1;
+if(!flag){
+$("#start_btn").confirm({
+            title: "こまっけろ:駒場祭へようこそ！",
+            text: "１、クイズは全部で１０問です。１問目から順番に答えてください。<br/>２、１問目から４問目はアプリ内の地図に場所が示されています。<br/>３、５問目以降は一つ前のクイズの場所に、次のクイズの場所のヒントが書かれています。<br/>４、すべてのクイズに答えなくても構いません。途中であっても、景品交換所にお越しいただければ、景品をお渡しします。<br/>５、クイズの正解数に応じて、景品のグレードが変わります。全問正解すると超豪華な景品が...!<br/>６、景品の交換は１１号館１階１１０２屋内休憩所内の景品交換所にて行います。その際に、スマホの画面を提示してください。<br/>７、クイズ終了後、簡単なアンケートがあります。アンケートの記入で、ボーナスポイントがもらえます。",
+            confirm: function(button) {
+              
+            //window.location.Reload();
+            //top.location.href='map.php?user_id='+user_id;
+            location.href='map.php?user_id='+user_id;
+            //window.Main.onResume();
+          },
+          cancel: function(button) {},
+          confirmButton: "開始",
+          cancelButton: "キャンセル"
+        });
+}
+else {
+   var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
+   $(document).ready(function(){
+    $("#start_btn").click(function(){
+     location.href='map.php?user_id='+user_id;
+    });
+   });
   
+}
+</script>
+
+
+
+<a id="manual_btn" class="btn btn-danger btn-block btn-lg radius2" href="manual.html" style="margin-bottom:30px;">使い方</a>
+<!--
+<a class="btn btn-danger btn-block btn-lg radius2" href="javascript:Main.reset();" style="margin-bottom:30px;">Reset</a>
+!-->
+
+<a href="https://docs.google.com/forms/d/1VpKEpUvPCgaqKOMO2aNJwIndlVbmW-prSrqwEGapGgI/viewform">
+  <img src="img/ad.png" border="0" style="width:100%;height:100%;"/>
+</a>
+
     <div id="reload" class="reload" style="display:none">
       <div class="reload-text alert alert-danger">
         読込みに失敗しました。
         <div><a href="javascript:Main.reload();"><button class="btn btn-danger">リロード</button></a></div>
        </div>
     </div>
-
-
 </div>
-<!--container-->
+
 
 <div class="link_area3">
 <div class="kokosil-logo">
@@ -63,12 +97,13 @@
 </div>
 </div>
 
+<footer>
 <a href="gcl.html" >
-<footer style="font-size:12px; line-height:1.4;">
 提供：東京大学坂村・越塚研究室<br>
 東京大学リーディングプログラムGCL
-</footer>
 </a>
+</footer>
+
 
 </body>
 </html>

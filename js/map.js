@@ -13,7 +13,8 @@ window.Main = (function($) {
     }
     
     function onResume(event, args) {
-        initMap();        
+        initMap(); 
+        initNotification(); 
      }
     
     function initMap(){
@@ -23,12 +24,11 @@ window.Main = (function($) {
         $("#stamp_acount").html("0");
         }
         else $("#stamp_acount").html(registeredTags.length);
-
-        //$("#stamp_acount").html(registeredTags.length);
-
+        if(registeredTags.length==10)
+            $("#finish_button").hide();
         if(registeredTags!=null){
             displayImg();
-        }    
+        }   
     }
 
     function launchQr() {
@@ -40,7 +40,7 @@ window.Main = (function($) {
 
             var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
 
-            $("#finish").html("コンプリートおめでとう！");
+            $("#finish").html("景品交換！");
             $("#finish").attr("href","result.php?user_id="+user_id);
             $("#finish").attr("style","color:yellow;");
         }
@@ -55,14 +55,35 @@ window.Main = (function($) {
     function onUcode(event, args) {
     	var ucode = args.ucode.toLowerCase();
         var type=args.type;
-       
     	if(type!=''){
              update(ucode,type); 
          }else{
             updatewithoutType(ucode); 
          }
     }
-    
+
+
+function initNotification(){
+        allucode=KokosilClient.getContext('mayfestival_stamprally_allucode');
+        registereducode= KokosilClient.getContext('mayfestival_stamprally_registereducode');
+            if(allucode!=null){
+            for(var i=0;i<allucode.length;i++){
+                 var code=allucode[i];
+                if(registereducode.length==10)KokosilClient.unregisterUcodeNotification(code); 
+                else{
+                    var index=jQuery.inArray(code, registereducode);
+                    if(index!=-1){
+                        KokosilClient.unregisterUcodeNotification(code);
+                    }else{
+                    KokosilClient.registerUcodeNotification(code, 'スタンプをゲット!');   
+                }
+            }
+
+        }
+    }
+}
+
+
     function update(ucode,type){
     
     	allTags=KokosilClient.getContext('mayfestival_stamprally_allTags', allTags);
@@ -70,33 +91,38 @@ window.Main = (function($) {
         registeredTags=KokosilClient.getContext('mayfestival_stamprally_registeredTags');
      
         var id;       
-
+        //alert(registeredTags.length);
         for(var i=0; i<allTags.length;i++){
             var tag=allTags[i];
             if(tag.ucode==ucode){
                 id=tag.id;
-                if(!checkRegistered(tag)){
-                    KokosilClient.unregisterUcodeNotification(tag.ucode);
+                var flag=checkRegistered(tag);
+                if(!flag)
+                {
 
-                    registereducode= KokosilClient.getContext('mayfestival_stamprally_registereducode');
-                    registereducode.push(ucode);
-                    KokosilClient.setContext('mayfestival_stamprally_registereducode',  registereducode);
+                        KokosilClient.unregisterUcodeNotification(tag.ucode);
 
-                    registeredTags.push(tag);
-                    KokosilClient.setContext('mayfestival_stamprally_registeredTags',  registeredTags);
+                        registereducode= KokosilClient.getContext('mayfestival_stamprally_registereducode');
+                        registereducode.push(ucode);
+                        KokosilClient.setContext('mayfestival_stamprally_registereducode',  registereducode);
+
+                        registeredTags.push(tag);
+                        KokosilClient.setContext('mayfestival_stamprally_registeredTags',  registeredTags);
                     
-                    var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
-                  
-                    location.href = 'quiz.php?user_id='+user_id+'&type='+type+'&id='+id;
-
+                        var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
+                        //if(allTags.length!=registeredTags.length)
+                        location.href = 'quiz.php?user_id='+user_id+'&type='+type+'&id='+id;
                 }
+                else if(type=='QR') 
+                    location.href = 'QR_again.html'
+                ;
             }
         }
     }
 
 
     function updatewithoutType(ucode){
-        alert("update no type");
+        //alert("update no type");
        allTags=KokosilClient.getContext('mayfestival_stamprally_allTags', allTags);
     
         registeredTags=KokosilClient.getContext('mayfestival_stamprally_registeredTags');
@@ -107,7 +133,7 @@ window.Main = (function($) {
             var tag=allTags[i];
             if(tag.ucode==ucode){
                 id=tag.id;
-                if(!checkRegistered(tag)){
+                if(!checkRegistered(tag)&&allTags.length!=registeredTags.length){
                     KokosilClient.unregisterUcodeNotification(tag.ucode);
 
                     registereducode= KokosilClient.getContext('mayfestival_stamprally_registereducode');
@@ -119,7 +145,8 @@ window.Main = (function($) {
                     
                     var user_id=KokosilClient.getContext('mayfestival_stamprally_user');
                     location.href = 'quiz.php?user_id='+user_id+'&id='+id;
-                    //location.href = 'quiz.php?user_id='+user_id+'&type='+type+'&id='+id;
+                }
+                else {
                 }
             }
         }
